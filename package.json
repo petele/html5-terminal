@@ -1,0 +1,41 @@
+{
+  "name": "html5-terminal",
+  "description": "HTML5 Terminal",
+  "version": "0.0.01",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petele/HTML5Terminal.git"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "del": "^3.0.0",
+    "eslint": "^5.6.1",
+    "eslint-config-google": "^0.10.0",
+    "eslint-plugin-compat": "^2.6.2",
+    "eslint-plugin-html": "^4.0.6",
+    "firebase-tools": "^5.0.1",
+    "fs-extra": "^7.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-connect": "^5.6.1",
+    "gulp-copy": "^4.0.0",
+    "gulp-csso": "^3.0.1",
+    "gulp-eslint": "^5.0.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-inline-source": "^3.2.0",
+    "gulp-jsdoc3": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-terser": "^1.1.5",
+    "run-sequence": "^2.2.1",
+    "semver": "^5.5.1",
+    "workbox-build": "^3.6.2"
+  },
+  "scripts": {
+    "prepush": "gulp lint",
+    "serve": "gulp serve"
+  }
+}
