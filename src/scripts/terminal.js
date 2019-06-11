@@ -1,5 +1,6 @@
+'use strict';
 /*
-Copyright 2011 Google Inc.
+Copyright 2019 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -12,25 +13,21 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-Author: Eric Bidelman (ericbidelman@chromium.org)
 */
 
-var util = util || {};
-util.toArray = function(list) {
-  return Array.prototype.slice.call(list || [], 0);
+const util = {
+  toArray: function(list) {
+    return Array.prototype.slice.call(list || [], 0);
+  },
+  getDocHeight: function() {
+    const d = document;
+    return Math.max(
+        Math.max(d.body.scrollHeight, d.documentElement.scrollHeight),
+        Math.max(d.body.offsetHeight, d.documentElement.offsetHeight),
+        Math.max(d.body.clientHeight, d.documentElement.clientHeight)
+    );
+  },
 };
-
-// Cross-browser impl to get document's height.
-util.getDocHeight = function() {
-  var d = document;
-  return Math.max(
-      Math.max(d.body.scrollHeight, d.documentElement.scrollHeight),
-      Math.max(d.body.offsetHeight, d.documentElement.offsetHeight),
-      Math.max(d.body.clientHeight, d.documentElement.clientHeight)
-  );
-};
-
 
 // TODO(ericbidelman): add fallback to html5 audio.
 function Sound(opt_loop) {
@@ -84,12 +81,12 @@ function Sound(opt_loop) {
   };
 }
 
-var Terminal = Terminal || function(containerId) {
+const Terminal = function(containerId) {
   window.URL = window.URL || window.webkitURL;
   window.requestFileSystem = window.requestFileSystem ||
                              window.webkitRequestFileSystem;
 
-  const VERSION_ = '1.0.0';
+  const VERSION_ = '2.0.0';
   const CMDS_ = [
     '3d', 'cat', 'cd', 'cp', 'clear', 'date', 'help', 'install', 'ls', 'mkdir',
     'mv', 'open', 'pwd', 'rm', 'rmdir', 'theme', 'version', 'who', 'wget'
@@ -98,6 +95,8 @@ var Terminal = Terminal || function(containerId) {
 
   var fs_ = null;
   var cwd_ = null;
+  var type_ = null;
+  var size_ = null;
   var history_ = [];
   var histpos_ = 0;
   var histtemp_ = 0;
@@ -505,7 +504,7 @@ var Terminal = Terminal || function(containerId) {
           }
           if (!magicWord_) {
             magicWord_ = new Sound(true);
-            magicWord_.load('magic_word.mp3', false, function() {
+            magicWord_.load('/assets/magic_word.mp3', false, function() {
               magicWord_.play();
             });
           } else {
