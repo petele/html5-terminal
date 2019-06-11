@@ -109,7 +109,7 @@ var Terminal = Terminal || function(containerId) {
   var is3D_ = false;
 
   // Fire worker to return recursive snapshot of current FS tree.
-  var worker_ = new Worker('worker.js');
+  var worker_ = new Worker('/scripts/worker.js');
   worker_.onmessage = function(e) {
     var data = e.data;
     if (data.entries) {
@@ -133,7 +133,7 @@ var Terminal = Terminal || function(containerId) {
   var output_ = container_.querySelector('output');
   var interlace_ = document.querySelector('.interlace');
   var bell_ = new Sound(false);
-  bell_.load('beep.mp3', false);
+  bell_.load('/assets/beep.mp3', false);
 
   // Hackery to resize the interlace background image as the container grows.
   output_.addEventListener('DOMSubtreeModified', function(e) {
