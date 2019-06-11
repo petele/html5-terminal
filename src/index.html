@@ -49,17 +49,28 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
 
 <!--<div class="crt top"></div>-->
 <div class="interlace"></div>
-<div id="container"></div>
+<div id="container">
+  <output></output>
+  <div id="input-line" class="input-line">
+    <div class="prompt">$&gt;</div>
+    <div><input class="cmdline" autofocus /></div>
+  </div>
+</div>
 <!--<div class="crt bottom"></div>-->
 
-<script src="/scripts/terminal.js"></script>
-<script>
-function toggleHelp() {
-  document.querySelector('.help').classList.toggle('hidden');
-  document.body.classList.toggle('dim');
-}
+<audio src="/assets/bell.mp3" id="bell"></audio>
 
+<!-- <script src="/scripts/terminal.js"></script> -->
+
+<script src="/scripts/terminal2019.js"></script>
+
+
+<script>
 (function() {
+
+  // Don't use the old terminal code
+  return;
+
   var term = new Terminal('container');
   term.initFS(false, 1024 * 1024);
 
@@ -69,14 +80,6 @@ function toggleHelp() {
   } else if (localStorage.theme) {
     term.setTheme(localStorage.theme);
   }
-
-  document.body.addEventListener('keydown', function(e) {
-    if (e.keyCode == 27) { // Esc
-      toggleHelp();
-      e.stopPropagation();
-      e.preventDefault();
-    }
-  }, false);
 
   // Setup the DnD listeners for file drop.
   document.body.addEventListener('dragenter', function(e) {
