@@ -101,9 +101,14 @@ class HTML5Terminal {
     this.#cmdLine.addEventListener('keydown', (e) => {
       this._processNewCommand(e);
     });
-    window.addEventListener('click', () => {
-      this.#cmdLine.focus();
-    });
+    // TODO - focus handling
+    // document.body.addEventListener('keydown', (e) => {
+    //   this._focusHandler(e);
+    // });
+    // window.addEventListener('click', () => {
+    //   console.log('focus', this.#cmdLine.hasFocus())
+    //   this.#cmdLine.focus();
+    // });
     const theme = localStorage.theme;
     if (theme) {
       this._setTheme(theme);
@@ -114,6 +119,10 @@ class HTML5Terminal {
     this.#cmdLine.removeAttribute('readonly');
     this.#cmdLine.focus();
     // this._test(directoryHandle);
+  }
+
+  _focusHandler(e) {
+    console.log('focus', document.activeElement);
   }
 
   _historyHandler(e) {
