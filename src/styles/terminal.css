@@ -35,6 +35,11 @@ limitations under the License.
   100% { opacity: 0.7; }
 }
 
+#notSupported {
+  font-weight: bold;
+  color: red;
+}
+
 ::selection {
   background: #0080FF;
   text-shadow: none !important;

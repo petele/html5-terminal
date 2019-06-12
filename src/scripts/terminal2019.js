@@ -112,7 +112,7 @@ class HTML5Terminal {
     this._print(`<div>${new Date().toLocaleString()}</div>`);
     this._print(`<p>Documentation: type "help"</p>`);
     this.#cmdLine.removeAttribute('readonly');
-
+    this.#cmdLine.focus();
     // this._test(directoryHandle);
   }
 
