@@ -182,7 +182,8 @@ body {
 .dim > * {
   opacity: 0.4;
 }
-.dim .help {
+
+.dim .dialog {
   opacity: 1;
 }
 iframe#fsn {
@@ -307,7 +308,8 @@ button:not([disabled]):active {
 button[disabled] {
   color: #ccc;
 }
-.help {
+
+.dialog {
   font-family: 'Droid Sans', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   position: fixed;
@@ -324,11 +326,11 @@ button[disabled] {
   user-select: none;
   font-size: 10pt;
 }
-.help,
-.help > section {
+.dialog,
+.dialog > section {
   border-radius: 10px;
 }
-.help > section {
+.dialog > section {
   padding: 10px;
   background: rgba(255, 255, 255, 0.3);
   -webkit-box-shadow: 3px 3px 5px rgba(0,0,0,0.6);
@@ -337,31 +339,31 @@ button[disabled] {
   position: relative;
   width: 610px;
 }
-.help section > div:first-child {
+.dialog section > div:first-child {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-.help section > div:last-child {
+.dialog section > div:last-child {
   padding-top: 0;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.help > section > div {
+.dialog > section > div {
   background: rgba(0, 0, 0, 1);
   padding: 20px;
 }
-.help h2 {
+.dialog h2 {
   padding-bottom: 8px;
   margin-top: 0;
   margin-bottom: 25px;
   border-bottom: 1px solid #fff;
   color: #ffcc00;
 }
-.help p strong {
+.dialog p strong {
   width: 60px;
   display: inline-block;
 }
-.help #close {
+.dialog .close {
   border-radius: 20px;
   padding: 2px 6px 2px 7px;
   border: 2px solid #fff;
@@ -373,11 +375,11 @@ button[disabled] {
   font-weight: bold;
   line-height: 17px;
 }
-.help #close:active {
+.dialog .close:active {
   right: 19px;
   top: 21px;
 }
-.help .shortcuts {
+.dialog .shortcuts {
   -webkit-columns: 2;
   columns: 2;
 }

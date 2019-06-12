@@ -108,6 +108,7 @@ class HTML5Terminal {
     this._print(`<div>Welcome to ${document.title}! (v${this.#VERSION})</div>`);
     this._print(`<div>${new Date().toLocaleString()}</div>`);
     this._print(`<p>Documentation: type "help"</p>`);
+    this.#cmdLine.removeAttribute('readonly');
   }
 
   _historyHandler(e) {
@@ -294,7 +295,7 @@ class HTML5Terminal {
     }
     this._print(`<div>Error, unknown theme provided.</div>`);
   }
- 
+
   _execVersion() {
     this._print(`<div>v${this.#VERSION}</div>`);
   }
@@ -349,4 +350,4 @@ class HTML5Terminal {
 
 }
 
-window.h5Terminal = new HTML5Terminal();
+// window.h5Terminal = new HTML5Terminal();
