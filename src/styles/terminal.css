@@ -164,6 +164,12 @@ iframe#fsn {
   padding: 0;
 }
 
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+ }
+
 .folder {
   color: #ffcc00;
 }
