@@ -75,14 +75,18 @@ class HTML5Terminal {
     'mv', 'open', 'pwd', 'rm', 'rmdir', 'theme', 'version', 'who', 'wget',
   ];
   #THEMES = ['default', 'cream'];
-  #directoryHandle;
+  // #directoryHandle;
+  #directoryArray = [];
   // #worker = new Worker('/scripts/worker2019.js');
 
   /**
    * Create the SoundDrown app.
    */
   constructor(directoryHandle) {
-    this.#directoryHandle = directoryHandle;
+
+    this.#directoryArray.push(directoryHandle);
+
+    // this.#directoryHandle = directoryHandle;
     this.#output.addEventListener('DOMSubtreeModified', (e) => {
       this._resizeInterlaceBg(e);
     });
@@ -231,10 +235,10 @@ class HTML5Terminal {
         return this._execLS(args);
       }
       if (cmd === 'pwd') {
-        return this._execNYI();
+        return this._execPWD();
       }
       if (cmd === 'cd') {
-        return this._execNYI(args);
+        return this._execCD(args);
       }
       if (cmd === 'mkdir') {
         return this._execNYI(args);
@@ -246,9 +250,6 @@ class HTML5Terminal {
         return this._execNYI(args);
       }
       if (cmd === 'open') {
-        return this._execNYI(args);
-      }
-      if (cmd === 'init') {
         return this._execNYI(args);
       }
       if (cmd === 'rm') {
@@ -297,9 +298,15 @@ class HTML5Terminal {
     this._print(`<p>Add files by dragging them from your desktop.</p>`);
   }
 
+  _getCWD() {
+    const lastItem = this.#directoryArray.length - 1;
+    return this.#directoryArray[lastItem];
+  }
+
   async _execLS() {
     const elems = [];
-    const entries = await this.#directoryHandle.getEntries();
+    const cwd = this._getCWD();
+    const entries = await cwd.getEntries();
     for await (const entry of entries) {
       const cls = entry.isDirectory ? 'folder' : 'file';
       const item = `<span class="${cls}">${entry.name}</span><br>`;
@@ -314,15 +321,50 @@ class HTML5Terminal {
       return;
     }
     try {
-      const cwd = this.#directoryHandle;
+      const cwd = this._getCWD();
       const fileHandle = await cwd.getFile(filename);
       const file = await fileHandle.getFile();
       const reader = new FileReader();
       const contents = await file.text();
       this._print(`<pre>${contents}</pre>`);
     } catch (ex) {
-      console.log('err', ex);
+      this._print(`<div>No such file or directory exists.</div>`);
+      console.error('err', ex);
     }
+  }
+
+  async _execCD(directory) {
+    if (!directory || !directory[0]) {
+      this._print(`usage: cd [path]`);
+      return;
+    }
+    directory = directory[0];
+    if (directory === '.') {
+      return this._execPWD();
+    }
+    if (directory === '..') {
+      if (this.#directoryArray.length > 1) {
+        this.#directoryArray.pop();
+      }
+      return this._execPWD();
+    }
+    try {
+      const cwd = this._getCWD();
+      const newDir = await cwd.getDirectory(directory);
+      this.#directoryArray.push(newDir);
+      return this._execPWD();
+    } catch (ex) {
+      this._print(`<div>No such file or directory exists.</div>`);
+      console.error('_execCD failed', ex);
+    }
+  }
+
+  async _execPWD() {
+    const p = [];
+    this.#directoryArray.forEach((entry) => {
+      p.push(entry.name);
+    });
+    this._print(`<div>/${p.join('/')}</div>`);
   }
 
 
