@@ -165,7 +165,7 @@ iframe#fsn {
 
 .ls-files {
   /* Default, but changed by js depending on length of filename */
-  column-width: 100px;
+  column-width: 250px;
 }
 
 .ls-files span {

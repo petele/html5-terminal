@@ -75,11 +75,14 @@ class HTML5Terminal {
     'mv', 'open', 'pwd', 'rm', 'rmdir', 'theme', 'version', 'who', 'wget',
   ];
   #THEMES = ['default', 'cream'];
+  #directoryHandle;
+  // #worker = new Worker('/scripts/worker2019.js');
 
   /**
    * Create the SoundDrown app.
    */
-  constructor() {
+  constructor(directoryHandle) {
+    this.#directoryHandle = directoryHandle;
     this.#output.addEventListener('DOMSubtreeModified', (e) => {
       this._resizeInterlaceBg(e);
     });
@@ -109,6 +112,8 @@ class HTML5Terminal {
     this._print(`<div>${new Date().toLocaleString()}</div>`);
     this._print(`<p>Documentation: type "help"</p>`);
     this.#cmdLine.removeAttribute('readonly');
+
+    // this._test(directoryHandle);
   }
 
   _historyHandler(e) {
@@ -199,7 +204,7 @@ class HTML5Terminal {
         return this._execClear();
       }
       if (cmd === 'cat') {
-        return this._execNYI(args.join(' '));
+        return this._execCat(args.join(' '));
       }
       if (cmd === 'date') {
         return this._execDate();
@@ -214,7 +219,7 @@ class HTML5Terminal {
         return this._execNYI();
       }
       if (cmd === 'ls') {
-        return this._execNYI(args);
+        return this._execLS(args);
       }
       if (cmd === 'pwd') {
         return this._execNYI();
@@ -283,6 +288,35 @@ class HTML5Terminal {
     this._print(`<p>Add files by dragging them from your desktop.</p>`);
   }
 
+  async _execLS() {
+    const elems = [];
+    const entries = await this.#directoryHandle.getEntries();
+    for await (const entry of entries) {
+      const cls = entry.isDirectory ? 'folder' : 'file';
+      const item = `<span class="${cls}">${entry.name}</span><br>`;
+      elems.push(item);
+    }
+    this._print(`<div class="ls-files">${elems.join('')}</div>`)
+  }
+
+  async _execCat(filename) {
+    if (!filename) {
+      this._print(`usage: cat [filename]`);
+      return;
+    }
+    try {
+      const cwd = this.#directoryHandle;
+      const fileHandle = await cwd.getFile(filename);
+      const file = await fileHandle.getFile();
+      const reader = new FileReader();
+      const contents = await file.text();
+      this._print(`<pre>${contents}</pre>`);
+    } catch (ex) {
+      console.log('err', ex);
+    }
+  }
+
+
   _execTheme(args) {
     const theme = args.join(' ');
     if (!theme) {
@@ -312,13 +346,11 @@ class HTML5Terminal {
 
   _toggle3DView() {}
 
-
   _keyboardShortcutHandler(e) {
     // Toggle CRT screen flicker. (CTRL-S)
     if ((e.ctrlKey || e.metaKey) && e.keyCode == 83) {
       this.#container.classList.toggle('flicker');
       const hasFlicker = this.#container.classList.contains('flicker');
-      console.log(hasFlicker)
       this._print(`<div>Screen flicker: ${hasFlicker ? 'on' : 'off'}</div>`);
       e.preventDefault();
       e.stopPropagation();
@@ -355,7 +387,6 @@ class HTML5Terminal {
   }
 
   _resizeInterlaceBg(e) {
-    console.log('interlace resize');
     const docHeight = this._getDocHeight();
     document.documentElement.style.height = `${docHeight}px`;
     this.#interlace.style.height = `${docHeight}px`;
@@ -365,5 +396,3 @@ class HTML5Terminal {
   _clickOnFileOrDir(e) {}
 
 }
-
-// window.h5Terminal = new HTML5Terminal();

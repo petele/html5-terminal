@@ -27,16 +27,16 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
 <!-- TODO: Add web app manifest -->
 <!-- TODO: Add appropriate meta tags -->
 </head>
-<body class="">
+<body class="dim">
 
-<aside class="dialog welcome hidden">
+<aside class="dialog welcome">
   <section>
     <div>
       <h2>HTML5 Terminal</h2>
       <div>
-        TODO
+        The file system API is <span id="notSupported">not</span> supported on this browser.
       </div>
-      <button id="butOpen" type="button">Open folder</button>
+      <button disabled id="butOpen" type="button">Open folder</button>
     </div>
     <div>
       <h2>What is this?</h2>
@@ -81,10 +81,21 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
 <script>
   const butOpen = document.getElementById('butOpen');
   butOpen.addEventListener('click', (e) => {
-    const elem = document.querySelector('.welcome');
-    elem.classList.toggle('hidden');
-    document.body.classList.toggle('dim');
-    window.h5Terminal = new HTML5Terminal();
+
+    const opts = {
+      type: 'openDirectory',
+      multiple: false,
+    };
+    window.chooseFileSystemEntries(opts)
+        .then((handle) => {
+          const elem = document.querySelector('.welcome');
+          elem.classList.toggle('hidden');
+          document.body.classList.toggle('dim');
+          window.h5Terminal = new HTML5Terminal(handle);
+        })
+        .catch((err) => {
+          console.log('err', err);
+        });
   });
 
   const butCloseHelp = document.getElementById('butCloseHelp');
@@ -95,7 +106,11 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
     document.body.classList.toggle('dim');
   });
 
-  window.h5Terminal = new HTML5Terminal();
+  if (window.chooseFileSystemEntries) {
+    console.log('OK');
+    butOpen.removeAttribute('disabled');
+    document.getElementById('notSupported').classList.add('hidden');
+  }
 </script>
 
 
