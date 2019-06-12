@@ -294,8 +294,9 @@ class HTML5Terminal {
     }
     this._print(`<div>Error, unknown theme provided.</div>`);
   }
+ 
   _execVersion() {
-    this._print(`<div>v${this.#VERSION}`);
+    this._print(`<div>v${this.#VERSION}</div>`);
   }
 
   _setTheme(theme) {
