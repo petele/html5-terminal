@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 @font-face {
   font-family: 'Inconsolata';
   font-style: normal;
@@ -20,40 +21,7 @@ limitations under the License.
   src: local('Inconsolata'), url('/assets/Inconsolata.woff') format('woff');
 }
 
-/*@-webkit-keyframes pulse {
- 0% {
-  opacity: 0;
- }
- 25% {
-  opacity: 0.2;
- }
- 50% {
-  opacity: 0;
- }
- 75% {
-  opacity: 0;
- }
- 100% {
-   opacity: 0.2;
- }
-}
-*/
-/*
-@-webkit-keyframes flicker {
-  0% { opacity: 0.95; }
-  10% { opacity: 0.9; }
-  20% { opacity: 0.85; }
-  30% { opacity: 0.9; }
-  40% { opacity: 0.95; }
-  50% { opacity: 0.9; }
-  60% { opacity: 0.95; }
-  70% { opacity: 0.92; }
-  80% { opacity: 0.85; }
-  90% { opacity: 0.92; }
-  100% { opacity: 0.9; }
-}
-*/
-@-webkit-keyframes flicker {
+@keyframes flicker {
   0% { opacity: 0.75; }
   10% { opacity: 0.7; }
   20% { opacity: 0.65; }
@@ -71,20 +39,24 @@ limitations under the License.
   background: #0080FF;
   text-shadow: none !important;
 }
+
 html, body {
   margin: 0;
   height: 100%;
 }
+
 body {
   font-family: Inconsolata, monospace;
   color: white;
-  background: -webkit-radial-gradient(center center, contain, rgba(0,150,0,1), black) center center no-repeat, black; /*center center for the gradient scrolls with the page :(*/
-  /*background: -webkit-radial-gradient(center 75%, contain, rgba(0,75,0,0.8), black) center center no-repeat, black;*/
-  -webkit-background-size: 110% 100%;
+  background: radial-gradient(rgba(0,150,0,1), black);
+  background-size: 110% 100%;
 }
+
+/*
 .offscreen {
-  background: -webkit-linear-gradient(top, #000, #333);
+  background: linear-gradient(top, #000, #333);
 }
+
 .offscreen #container {
   background: rgba(0,0,0,0.7);
   height: 100%;
@@ -92,6 +64,7 @@ body {
   text-shadow: none;
   box-shadow: 0 0 15px black;
 }
+
 .offscreen #container output {
   overflow-x: hidden;
   display: inline-block;
@@ -100,23 +73,22 @@ body {
 .offscreen .interlace {
   display: none;
 }
+*/
+
 #container {
-  -webkit-transition: -webkit-transform 1.5s ease-in-out;
+  transition: transform 1.5s ease-in-out;
   width: 100%;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 1em 1.5em 1em 1em;
+  text-shadow: 0 0 5px #C8C8C8;
 }
 
 .dropping {
-  /*background: -webkit-linear-gradient(
-    bottom,
-    rgb(209,144,23) 13%,
-    rgb(251,173,51) 57%,
-    rgb(255,208,77) 79%
-  );*/
+  /* TODO */
   background: -webkit-radial-gradient(center center, contain, rgba(0,175,0,1), black) center center no-repeat;
-  -webkit-background-size: 125% 125%;
+  background-size: 125% 125%;
 }
+
 /*
 .crt {
   z-index: 50;
@@ -134,7 +106,7 @@ body {
 .crt.bottom {
   -webkit-transform: rotate(180deg);
   bottom: -20px;
-}*/
+}
 .crt {
   z-index: 50;
   width: 100%;
@@ -149,36 +121,37 @@ body {
   bottom: 0;
   -webkit-transform: rotate(180deg);
 }
+
 .hz {
   -webkit-animation-name: hz;
   -webkit-animation-duration: 30s;
   -webkit-animation-iteration-count: infinite;
 }
+*/
 
 .flicker {
-  -webkit-animation-name: flicker;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
+  animation-name: flicker;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
+
 .interlace {
   position: absolute;
   left: 0;
   top: 0;
-  background: url(/assets/interlace.png) top left repeat, rgba(255,255,255,0.5);
+  background: url("/assets/interlace.png") top left repeat, rgba(255,255,255,0.5);
   width: 100%;
   height: 100%;
   opacity: 0.2;
   z-index: 10;
   pointer-events: none;
-  /*border-top-left-radius: 150px 50px;
-  border-top-right-radius: 150px 50px;
-  border-bottom-left-radius: 150px 50px;
-  border-bottom-right-radius: 150px 50px;*/
 }
+
 .hidden {
   display: none !important;
 }
+
 .dim > * {
   opacity: 0.4;
 }
@@ -186,33 +159,27 @@ body {
 .dim .dialog {
   opacity: 1;
 }
+
 iframe#fsn {
   position: absolute;
   height: 100%;
   width: 100%;
   border: none;
 }
-#container {
-  padding: 1em 1.5em 1em 1em;
-  text-shadow: 0 0 5px #C8C8C8;
-  /*overflow: hidden;
-  white-space: nowrap;*/
 
-  /*box-shadow: 10px 5px 20px rgba(255,255,255,0.2) inset,
-              -10px -5px 20px rgba(255,255,255,0.2) inset;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.1);*/
-}
 #container output {
   clear: both;
   width: 100%;
 }
+
 #container output h3 {
   margin: 0;
 }
+
 #container output pre {
   margin: 0;
 }
+
 #container output textarea {
   width: 100%;
   height: 200px;
@@ -224,31 +191,35 @@ iframe#fsn {
   border-radius: 10px;
   padding: 5px;
 }
+
 #container output textarea::selection {
   background: red;
 }
+
+/* TODO */
 #container output textarea::-webkit-scrollbar {
   width: 1ex;
 }
+
 #container output textarea::-webkit-scrollbar-thumb {
   border-top: 1px solid #fff;
+  /* TODO */
   background: #ccc -webkit-linear-gradient(rgb(240, 240, 240), rgb(210, 210, 210));
   border-radius: 1ex;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
+
 .input-line {
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: stretch;
-  display: box;
-  box-orient: horizontal;
-  box-align: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
   clear: both;
 }
+
 .input-line > div:nth-child(2) {
-  -webkit-box-flex: 1;
-  box-flex: 1;
+  flex-grow: 1;
 }
+
 .prompt {
   white-space: nowrap;
   color: #ffcc00; /*green;*/
@@ -262,6 +233,7 @@ iframe#fsn {
   -webkit-user-select: none;
   user-select: none;
 }
+
 .cmdline {
   outline: none;
   background-color: transparent;
@@ -271,21 +243,26 @@ iframe#fsn {
   border: none;
   color: inherit;
 }
+
 .folder {
   color: #ffcc00;
 }
+
 .ls-files {
   /*height: 45px;*/
   /* Default, but changed by js depending on length of filename */
   -webkit-column-width: 100px;
   column-width: 100px;
 }
+
 .ls-files span {
   cursor: pointer;
 }
+
 .ls-files span:hover {
   text-decoration: underline;
 }
+
 button {
   background: -webkit-gradient(linear, 0% 40%, 0% 70%, from(#F9F9F9), to(#E3E3E3));
   border: 1px solid #ccc;
@@ -299,6 +276,7 @@ button {
   user-select: none;
   cursor: pointer;
 }
+
 button:not([disabled]):hover {
   border-color: #ffcc00;
 }

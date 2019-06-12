@@ -27,9 +27,9 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
 <!-- TODO: Add web app manifest -->
 <!-- TODO: Add appropriate meta tags -->
 </head>
-<body class="dim">
+<body class="">
 
-<aside class="dialog welcome">
+<aside class="dialog welcome hidden">
   <section>
     <div>
       <h2>HTML5 Terminal</h2>
@@ -94,6 +94,8 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
     elem.classList.toggle('hidden');
     document.body.classList.toggle('dim');
   });
+
+  window.h5Terminal = new HTML5Terminal();
 </script>
 
 
@@ -139,7 +141,7 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
   }, false);
 })();
 </script>
-
+<!-- PWA install - https://github.com/ProgressiveWebComponents/pwa-install? -->
 <!-- Add Analytics Here -->
 <!-- Add Service Worker -->
 </body>

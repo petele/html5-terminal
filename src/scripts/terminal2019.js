@@ -205,7 +205,7 @@ class HTML5Terminal {
         return this._execDate();
       }
       if (cmd === 'exit') {
-        return _this._execNYI(args);
+        return this._execNYI(args);
       }
       if (cmd === 'help') {
         return this._execHelp();
@@ -344,7 +344,23 @@ class HTML5Terminal {
     this.#cmdLine.scrollIntoView();
   }
 
-  _resizeInterlaceBg(e) {}
+  _getDocHeight() {
+    const dB = document.body;
+    const dDE = document.documentElement;
+    return Math.max(
+      Math.max(dB.scrollHeight, dDE.scrollHeight),
+      Math.max(dB.offsetHeight, dDE.offsetHeight),
+      Math.max(dB.clientHeight, dDE.clientHeight),
+    );
+  }
+
+  _resizeInterlaceBg(e) {
+    console.log('interlace resize');
+    const docHeight = this._getDocHeight();
+    document.documentElement.style.height = `${docHeight}px`;
+    this.#interlace.style.height = `${docHeight}px`;
+    this.#cmdLine.scrollIntoView();
+  }
 
   _clickOnFileOrDir(e) {}
 
