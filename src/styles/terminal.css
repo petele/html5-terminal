@@ -52,7 +52,6 @@ body {
   background-size: 110% 100%;
 }
 
-/*
 .offscreen {
   background: linear-gradient(top, #000, #333);
 }
@@ -70,10 +69,11 @@ body {
   display: inline-block;
   height: 100px;
 }
+
 .offscreen .interlace {
   display: none;
 }
-*/
+
 
 #container {
   transition: transform 1.5s ease-in-out;
@@ -89,45 +89,7 @@ body {
   background-size: 125% 125%;
 }
 
-/*
-.crt {
-  z-index: 50;
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  /*margin: 15px 31px 0px 32px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background: -webkit-gradient(radial, 50% 10057%, 4999, 50% 10055%, 5000, from(transparent), to(black) ) transparent no-repeat 10% 100%;
-}
-.crt.top {
-  top: -20px;
-}
-.crt.bottom {
-  -webkit-transform: rotate(180deg);
-  bottom: -20px;
-}
-.crt {
-  z-index: 50;
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  background: black;
-}
-.crt.top {
-  top: 0;
-}
-.crt.bottom {
-  bottom: 0;
-  -webkit-transform: rotate(180deg);
-}
 
-.hz {
-  -webkit-animation-name: hz;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-iteration-count: infinite;
-}
-*/
 
 .flicker {
   animation-name: flicker;
@@ -172,43 +134,6 @@ iframe#fsn {
   width: 100%;
 }
 
-#container output h3 {
-  margin: 0;
-}
-
-#container output pre {
-  margin: 0;
-}
-
-#container output textarea {
-  width: 100%;
-  height: 200px;
-  background-color: rgba(255,255,255,0.1);
-  border: none;
-  color: inherit;
-  font: inherit;
-  outline: 0;
-  border-radius: 10px;
-  padding: 5px;
-}
-
-#container output textarea::selection {
-  background: red;
-}
-
-/* TODO */
-#container output textarea::-webkit-scrollbar {
-  width: 1ex;
-}
-
-#container output textarea::-webkit-scrollbar-thumb {
-  border-top: 1px solid #fff;
-  /* TODO */
-  background: #ccc -webkit-linear-gradient(rgb(240, 240, 240), rgb(210, 210, 210));
-  border-radius: 1ex;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-}
-
 .input-line {
   display: flex;
   flex-direction: row;
@@ -218,15 +143,8 @@ iframe#fsn {
 
 .prompt {
   white-space: nowrap;
-  color: #ffcc00; /*green;*/
-  margin-right: 7px;
-  display: -webkit-box;
-  -webkit-box-pack: center;
-  -webkit-box-orient: vertical;
-  display: box;
-  box-pack: center;
-  box-orient: vertical;
-  -webkit-user-select: none;
+  color: #ffcc00;
+  margin-right: 8px;
   user-select: none;
 }
 
@@ -238,6 +156,7 @@ iframe#fsn {
   font: inherit;
   border: none;
   color: inherit;
+  padding: 0;
 }
 
 .folder {
@@ -245,9 +164,7 @@ iframe#fsn {
 }
 
 .ls-files {
-  /*height: 45px;*/
   /* Default, but changed by js depending on length of filename */
-  -webkit-column-width: 100px;
   column-width: 100px;
 }
 
@@ -260,7 +177,6 @@ iframe#fsn {
 }
 
 button {
-  background: -webkit-gradient(linear, 0% 40%, 0% 70%, from(#F9F9F9), to(#E3E3E3));
   border: 1px solid #ccc;
   border-radius: 3px;
   color: black;
@@ -276,56 +192,61 @@ button {
 button:not([disabled]):hover {
   border-color: #ffcc00;
 }
+
 button:not([disabled]):active {
-  background: -webkit-gradient(linear, 0% 40%, 0% 70%, from(#E3E3E3), to(#F9F9F9));
+  background: linear-gradient(#E3E3E3, #F9F9F9);
 }
+
 button[disabled] {
   color: #ccc;
 }
 
 .dialog {
   font-family: 'Droid Sans', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 100;
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
-  -webkit-box-orient: vertical;
-  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   user-select: none;
   font-size: 10pt;
 }
-.dialog,
-.dialog > section {
-  border-radius: 10px;
+
+.dialog a {
+  color: white;
 }
+
 .dialog > section {
   padding: 10px;
   background: rgba(255, 255, 255, 0.3);
-  -webkit-box-shadow: 3px 3px 5px rgba(0,0,0,0.6);
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.6);
   border-radius: 10px;
   color: white;
   position: relative;
+  /* TODO hard coded, won't work on mobile */
   width: 610px;
 }
+
 .dialog section > div:first-child {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
 .dialog section > div:last-child {
   padding-top: 0;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
 .dialog > section > div {
   background: rgba(0, 0, 0, 1);
   padding: 20px;
 }
+
 .dialog h2 {
   padding-bottom: 8px;
   margin-top: 0;
@@ -333,10 +254,16 @@ button[disabled] {
   border-bottom: 1px solid #fff;
   color: #ffcc00;
 }
-.dialog p strong {
-  width: 60px;
-  display: inline-block;
+
+.dialog .shortcuts {
+  display: flex;
+  flex-direction: row;
 }
+
+.dialog .shortcuts p {
+  width: 50%;
+}
+
 .dialog .close {
   border-radius: 20px;
   padding: 2px 6px 2px 7px;
@@ -349,15 +276,11 @@ button[disabled] {
   font-weight: bold;
   line-height: 17px;
 }
-.dialog .close:active {
-  right: 19px;
-  top: 21px;
-}
-.dialog .shortcuts {
-  -webkit-columns: 2;
-  columns: 2;
-}
 
+.dialog .close:active {
+  background-color: white;
+  color: black;
+}
 
 /* Themes */
 .cream {
