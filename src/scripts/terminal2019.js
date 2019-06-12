@@ -173,7 +173,7 @@ class HTML5Terminal {
         this.#history.push(currentLine);
         this.#historyPos = this.#history.length;
       }
-      const line = this.#cmdLine.parentNode.parentNode.cloneNode(true);
+      const line = this.#cmdLine.parentNode.cloneNode(true);
       line.removeAttribute('id');
       line.classList.add('line');
       const input = line.querySelector('input.cmdline');

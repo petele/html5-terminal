@@ -216,10 +216,6 @@ iframe#fsn {
   clear: both;
 }
 
-.input-line > div:nth-child(2) {
-  flex-grow: 1;
-}
-
 .prompt {
   white-space: nowrap;
   color: #ffcc00; /*green;*/
