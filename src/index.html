@@ -32,16 +32,33 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
 <aside class="dialog welcome">
   <section>
     <div>
-      <h2>HTML5 Terminal</h2>
-      <div>
-        The file system API is <span id="notSupported">not</span> supported on this browser.
-      </div>
+      <h2>HTML5 Terminal v2 (alpha)</h2>
+      <p>
+        The native file system API is <span class="red bold notSupported">not</span>
+        supported on this browser. <span class="notSupported">If you're running
+        Chrome, you can try enabling the <code>#native-file-system-api</code>
+        flag in <code>chrome://flags</code>.</span>
+      </p>
       <button disabled id="butOpen" type="button">Open folder</button>
     </div>
     <div>
       <h2>What is this?</h2>
-      <p>TODO: A Command-line terminal/shell running on top of HTML5 APIs.</p>
-      <p><a href="https://github.com/petele/html5-terminal#credits">Credits</a></p>
+      <p>
+        <!-- TODO: Update description -->
+        A Command-line terminal/shell running on top of the native file system
+        APIs.
+      </p>
+      <h3>Credits</h3>
+      <p>
+        Originally written as the
+        <a href="http://www.htmlfivewow.com/demos/terminal/terminal.html">HTML5 Terminal v1</a>
+        in 2011 for a Google I/O demo by
+        <a href="https://mobile.twitter.com/ebidel">Eric Bidelman</a>
+        to show the sandboxed file system APIs.
+        Updated in 2019 by <a href="https://mobile.twitter.com/petele">Pete LePage</a>
+        to show off the new <a href="https://wicg.github.io/native-file-system/">
+        Native File System APIs</a>
+      </p>
     </div>
   </section>
 </aside>
@@ -108,7 +125,11 @@ Originally created by: Eric Bidelman (ericbidelman@chromium.org)
 
   if (window.chooseFileSystemEntries) {
     butOpen.removeAttribute('disabled');
-    document.getElementById('notSupported').classList.add('hidden');
+    const elems = document.querySelectorAll('.notSupported');
+    elems.forEach((elem) => {
+      elem.classList.add('hidden');
+    });
+    // document.getElementById('notSupported').classList.add('hidden');
   }
 </script>
 
