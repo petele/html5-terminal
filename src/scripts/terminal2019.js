@@ -398,6 +398,8 @@ class HTML5Terminal {
   _toggle3DView() {}
 
   _keyboardShortcutHandler(e) {
+    // TODO: CTRL-U to clear line
+    // TODO: CTRK-K to clear screen
     // Toggle CRT screen flicker. (CTRL-S)
     if ((e.ctrlKey || e.metaKey) && e.keyCode == 83) {
       this.#container.classList.toggle('flicker');
